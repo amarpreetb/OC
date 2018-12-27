@@ -57,12 +57,18 @@ console.log("Calls above 1K:" + callssAbove1K);
 console.log("Puts above 1K:" + putssAbove1K);
 console.log("Calls above 1K OI:" + callsOpenintsAbove1K);
 console.log("Puts above 1K OI:" + putsOpenintsAbove1K);
+console.log("C/P No. above 1K " + callssAbove1K/putssAbove1K);
+console.log("\n");
 
 console.log("Calls above 1K Total:" + totalCallsAbove1KVolume);
 console.log("Puts above 1K Total:" + totalPutsAbove1KVolume);
+console.log("C/P above 1K " + totalCallsAbove1KVolume/totalPutsAbove1KVolume)
+console.log("\n");
 
 console.log("TOTAL");
 console.log("Total Calls Volume:" + totalCallsVolume);
 console.log("Total Puts Volume:" + totalPutsVolume);
 console.log("Total Calls Open Interest:" + totalCallsOpenInt);
 console.log("Total Puts Open Interest:" + totalPutsOpenInt);
+
+console.log("C/P " + totalCallsVolume/totalPutsVolume);
