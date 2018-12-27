@@ -62,7 +62,7 @@ console.log("\n");
 
 console.log("Calls above 1K Total:" + totalCallsAbove1KVolume);
 console.log("Puts above 1K Total:" + totalPutsAbove1KVolume);
-console.log("C/P above 1K " + totalCallsAbove1KVolume/totalPutsAbove1KVolume)
+console.log("C/P above 1K " + totalCallsAbove1KVolume/totalPutsAbove1KVolume);
 console.log("\n");
 
 console.log("TOTAL");
