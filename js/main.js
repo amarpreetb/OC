@@ -53,22 +53,41 @@ for(var i = 0; i < rows.length; i++){
     }
 }
 
-console.log("Calls above 1K:" + callssAbove1K);
-console.log("Puts above 1K:" + putssAbove1K);
-console.log("Calls above 1K OI:" + callsOpenintsAbove1K);
-console.log("Puts above 1K OI:" + putsOpenintsAbove1K);
-console.log("C/P No. above 1K " + callssAbove1K/putssAbove1K);
-console.log("\n");
+document.getElementById("calls1k").innerHTML = "Calls above 1K: " + callssAbove1K;
+document.getElementById("puts1k").innerHTML = "Puts above 1K: " + putssAbove1K;
+document.getElementById("callsoi1k").innerHTML = "Calls above 1K OI: " + callsOpenintsAbove1K;
+document.getElementById("putsoi1k").innerHTML = "Puts above 1K OI: " + putsOpenintsAbove1K;
+document.getElementById("cpratio").innerHTML = "C/P No. above 1K " + callssAbove1K/putssAbove1K;
+document.getElementById("calls1ktotal").innerHTML = "Calls above 1K Total: " + totalCallsAbove1KVolume;
+document.getElementById("puts1ktotal").innerHTML = "Puts above 1K Total: " + totalPutsAbove1KVolume;
+document.getElementById("cp1kvolumeratio").innerHTML = "C/P above 1K " + totalCallsAbove1KVolume/totalPutsAbove1KVolume;
+document.getElementById("callstotal").innerHTML = "Total Calls Volume: " + totalCallsVolume;
+document.getElementById("putstotal").innerHTML = "Total Puts Volume: " + totalPutsVolume;
+document.getElementById("cptotalvolumeratio").innerHTML = "C/P " + totalCallsVolume/totalPutsVolume;
 
-console.log("Calls above 1K Total:" + totalCallsAbove1KVolume);
-console.log("Puts above 1K Total:" + totalPutsAbove1KVolume);
-console.log("C/P above 1K " + totalCallsAbove1KVolume/totalPutsAbove1KVolume);
-console.log("\n");
+if((callssAbove1K/putssAbove1K) < 1)
+{
+    document.getElementById("cpratio").style.color = "rgb(214, 49, 49)";
+}
+else
+{
+    document.getElementById("cpratio").style.color = "lightgreen";
+}
 
-console.log("TOTAL");
-console.log("Total Calls Volume:" + totalCallsVolume);
-console.log("Total Puts Volume:" + totalPutsVolume);
-console.log("Total Calls Open Interest:" + totalCallsOpenInt);
-console.log("Total Puts Open Interest:" + totalPutsOpenInt);
+if((totalCallsAbove1KVolume/totalPutsAbove1KVolume) < 1)
+{
+    document.getElementById("cp1kvolumeratio").style.color = "rgb(214, 49, 49)";
+}
+else
+{
+    document.getElementById("cp1kvolumeratio").style.color = "lightgreen";
+}
 
-console.log("C/P " + totalCallsVolume/totalPutsVolume);
+if((totalCallsVolume/totalPutsVolume) < 1)
+{
+    document.getElementById("cptotalvolumeratio").style.color = "rgb(214, 49, 49)";
+}
+else
+{
+    document.getElementById("cptotalvolumeratio").style.color = "lightgreen";
+}
