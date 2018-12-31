@@ -1,6 +1,5 @@
 var rows = document.querySelector('table').querySelectorAll("[class^='chainrow aright']");
 
-// console.log(rows);
 var callssAbove1K = 0;
 var putssAbove1K = 0;
 var callsOpenintsAbove1K = 0;
