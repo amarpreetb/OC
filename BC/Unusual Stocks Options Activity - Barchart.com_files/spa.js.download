@@ -1,0 +1,128 @@
+function IC_ResetPage(){
+    try{
+        //Unload the InvestingChannel Namespace
+        delete loaded
+
+        delete InvestingChannel.Document.getInstance()
+
+        //Previous Document Instance
+        icDocument = undefined;
+
+        //Get all the pixels dropped on the page
+        var icLogPixels = document.getElementsByTagName('img');
+
+        if(icLogPixels!=null){
+            for(var i = icLogPixels.length-1; i >=0; i--){
+                var icLogPixelElement = icLogPixels[i];
+                var pixelSrc = icLogPixelElement.src;
+
+                //Check if the source of pixel is UAT log or not
+                if(pixelSrc.match(/ads.investingchannel.com\/adtags\/log/)){
+                    //Remove the pixel from DOM
+                    icLogPixelElement.remove();
+                }
+            }
+        }
+
+        var ic_window = window.top;
+        if (window.localStorage !== undefined) {
+
+            //Remove the UAT user page object from session storage
+            sessionStorage.removeItem(IC_USERPAGE_OBJECT_NAME);
+
+            var i = sessionStorage.length;
+            while (i--) {
+                var key = sessionStorage.key(i);
+                if (/^IC_Ad_\d+$/.test(key)) {
+                    //Remove UAT ad object from session storage
+                    sessionStorage.removeItem(key);
+                }
+            }
+        }else{
+            delete window[IC_USERPAGE_OBJECT_NAME];
+        }
+
+        //Pubmatic Global data fetched flag and window variable
+        delete ic_window.ic_pubmaticValuesFetched
+        delete ic_window.ic_pubmatic_bids;
+
+        //Rubicon Global data fetched flag
+        delete ic_window.ic_rubiconValuesFetched
+
+        //A9 Global data fetched flag
+        delete ic_window.ic_a9ValuesFetched
+        delete ic_window.ic_a9_bids
+
+        //Appnexus Global data fetched flag
+        delete ic_window.ic_appNexusValuesFetched
+
+        //Sortable Global data fetched flag
+        delete ic_window.ic_sortableValuesFetched
+
+        //Openx Global data fetched flag
+        delete ic_window.ic_openxValuesFetched
+        delete ic_window.ic_openx_bids
+
+        delete ic_window.pbjs
+
+        //Markit Global data fetched flag
+        delete ic_window.ic_markitValuesFetched
+
+        //Index Global data fetched flag
+        delete ic_window.ic_indexValuesFetched
+        delete ic_window.ic_index_bids
+
+        //Criteo Global data fetched flag
+        delete ic_window.ic_criteoValuesFetched
+
+        //Criteo Global flag
+        delete window.criteoInit
+
+        delete window.mediaconductor
+
+        //IAS Global data fetched flag
+        delete ic_window.ic_iasValuesFetched
+        var IasScriptId = "IC_IAS_Script_P1dFFbelv6tjpTlLj4VD";
+        try{
+
+            delete ic_window.__iasPET
+            
+            if(ic_window.document.getElementById(IasScriptId)) {
+                var element = ic_window.document.getElementById(IasScriptId);
+                element.parentNode.removeChild(element);
+            }
+        }catch (e){}
+
+        //Native Ad variables
+        //IC_NATIVE_TARGETS={};
+        //IC_NATIVE_AD_UNIT="";
+        delete IC_NATIVE_TARGETS;
+        delete IC_NATIVE_AD_UNIT;
+
+        //Updating correlator
+        try{
+            if(googletag){
+                googletag.destroySlots();
+                googletag.pubads().updateCorrelator();
+            }
+        }catch (e){}
+
+        //Rest Native 3.0 Ads
+        try{
+            IC_Native_ResetPage();
+        }catch (e){}
+
+        //Deleting Iframes from Appnexus and Pubmatic
+        try{
+                var ic_iframes = document.getElementsByTagName('iframe');
+                for(var i = ic_iframes.length-1; i >= 0; i--) {
+                    if(ic_iframes[i].src == location.protocol+'//acdn.adnxs.com/ib/static/usersync/v3/async_usersync.html' || ic_iframes[i].src == location.protocol+'//ads.pubmatic.com/AdServer/js/showad.js#PIX&kdntuid=1&p=52041') {
+                        ic_iframes[i].parentNode.removeChild(ic_iframes[i]);
+                    }
+                }
+        }catch (e){}
+
+    }catch (e){
+        console.log(e);
+    }
+}
