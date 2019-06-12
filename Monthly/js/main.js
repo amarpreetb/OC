@@ -18,13 +18,15 @@ var tempmax = 0
 
 for(var i = 0; i < rows.length; i++){
     // console.log(parseInt(rows[i].cells[3].innerHTML.replace(/,/g, '')));
-
-    totalCallsVolume += parseInt(rows[i].cells[3].innerHTML.replace(/,/g, ''));
-    totalPutsVolume += parseInt(rows[i].cells[11].innerHTML.replace(/,/g, ''));
-    
     // totalCallsOpenInt += rows[i].cells[6].innerHTML;
-    totalCallsOpenInt += parseInt(rows[i].cells[6].innerHTML.replace(/,/g, ''));
-    totalPutsOpenInt += parseInt(rows[i].cells[14].innerHTML.replace(/,/g, ''));
+    if(rows[i].cells[11] != undefined){
+	totalPutsVolume += parseInt(rows[i].cells[11].innerHTML.replace(/,/g, ''));
+	totalPutsOpenInt += parseInt(rows[i].cells[14].innerHTML.replace(/,/g, ''));
+    }
+    if(rows[i].cells[3] != undefined){
+	totalCallsVolume += parseInt(rows[i].cells[3].innerHTML.replace(/,/g, ''));
+	totalCallsOpenInt += parseInt(rows[i].cells[6].innerHTML.replace(/,/g, ''));
+    }
 }
 
 document.getElementById("calls1k").innerHTML = "Calls above 1K: " + callssAbove1K;
@@ -65,3 +67,22 @@ else
 {
     document.getElementById("cptotalvolumeratio").style.color = "lightgreen";
 }
+
+//3 and 11
+function highlightLargest(column){
+    var rowIndex = 0;
+    var largest = 0;
+    for(var i = 0; i < rows.length; i++){
+	if(rows[i].cells[column] != undefined){
+	    var currentVol = parseInt(rows[i].cells[column].innerHTML.replace(',', '')); 
+	    if(currentVol > largest){
+		largest = currentVol;
+		rowIndex = i;
+	    }
+	}
+    }
+    rows[rowIndex].cells[column].style.background = "red";
+}
+highlightLargest(3);
+highlightLargest(11);
+
